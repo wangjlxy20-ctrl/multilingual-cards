@@ -231,12 +231,9 @@ searchBtn.addEventListener('click', async () => {
   currentCard = { word, lang: currentLang, ipa, cn: cnDef, addedAt: Date.now() };
 
   const alreadyIn = vocabCards.some(c => c.word === word && c.lang === currentLang);
-  const btnHtml = !cnDef
-    ? `<p class="collect-hint">🌙 翻译失败，暂不能收藏</p>`
-    : alreadyIn
-      ? `<button class="collect-btn" disabled>✅ 已在生词本</button>`
-      : `<button class="collect-btn">➕ 收藏到生词本</button>`;
-
+  const btnHtml = alreadyIn
+  ? `<button class="collect-btn" disabled>✅ 已在生词本</button>`
+  : `<button class="collect-btn">➕ 收藏到生词本</button>`;
 
   
   resultBox.innerHTML = `
