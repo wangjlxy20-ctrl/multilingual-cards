@@ -213,18 +213,15 @@ searchBtn.addEventListener('click', async () => {
 
   resultBox.textContent = '⏳ 查询中...';
   const data = await lookupWord(word);
-  if (!data || !data.entries || data.entries.length === 0) {
-    resultBox.textContent = '❌ 没找到这个单词，换个试试？';
-    currentCard = null; 
-    return;
-  }
 
-  const entry = data.entries[0];
-  const pos     = entry.partOfSpeech || '';
-  const ipa     = entry.pronunciations?.[0]?.text || '';
-  const def     = entry.senses?.[0]?.definition || '暂无释义';
-  const example = entry.senses?.[0]?.examples?.[0] || '';
-  const cnDef   = data.chineseDef;   // ← 新增：中文释义（可能是 null）
+  // ⭐ 查不到也不撤退：data / entry 可能是空的，全部用 ?. 安全取值
+  // 不这么写的话，日语假名查不到 → 提前 return → 永远走不到收藏按钮
+  const entry   = data?.entries?.[0];
+  const pos     = entry?.partOfSpeech || '';
+  const ipa     = entry?.pronunciations?.[0]?.text || '';
+  const def     = entry?.senses?.[0]?.definition || '';
+  const example = entry?.senses?.[0]?.examples?.[0] || '';
+  const cnDef   = data?.chineseDef || null;   // 翻译失败就是 null，不再拦收藏
 
 
   // ⭐ 修复2：先打包、先算按钮 —— 必须在 innerHTML 之前
@@ -242,7 +239,7 @@ searchBtn.addEventListener('click', async () => {
       ${ipa ? `<span class="ipa">/${ipa}/</span>` : ''}
       ${pos ? `<span class="pos">${pos}</span>` : ''}
     </div>
-    <p class="definition">${def}</p>
+    <p class="definition">${def || '❌ 没查到释义——不影响收藏，先存单词，释义以后再补'}</p>
     ${cnDef ? `<p class="cn-def">CN${cnDef}</p>` : ''}
     ${example ? `<p class="example"><em>💬${example}</em></p>` : ''}
     ${btnHtml}
