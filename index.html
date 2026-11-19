@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multilingual Cards</title>
+
+    <!-- CSS Styles -->
+    <link rel="stylesheet" href="style.css" />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>"
+    />
+  </head>
+  <body>
+    <!-- ===== TOP TITLE ===== -->
+    <header class="app-header">
+      <h1>⚛ Multilingual Cards</h1>
+      <p class="subtitle">
+        Lookup · Pronunciation · Vocabulary Builder · Review
+      </p>
+    </header>
+
+    <!-- ===== SWITCH LANGUAGE ===== -->
+    <div class="lang-switcher">
+      <label for="lang-select">🌐 学习语言：</label>
+      <select id="lang-select">
+        <option value="en">🇺🇸 English</option>
+        <option value="ja">🇯🇵 Japanese</option>
+        <option value="ko">🇰🇷 Korean</option>
+        <option value="de">🇩🇪 German</option>
+      </select>
+    </div>
+
+    <!-- ===== Word Lookup Area ===== -->
+    <main class="card-area">
+      <input
+        type="text"
+        id="word-input"
+        placeholder="Enter a word..."
+        autocomplete="off"
+      />
+      <div class="button-group">
+        <button id="search-btn" class="btn btn-primary">🔍 Lookup</button>
+        <button id="speak-btn" class="btn btn-secondary">
+          🔊 Pronunciation
+        </button>
+      </div>
+
+      <!-- Query results will be displayed here -->
+      <div id="result" class="result-box">Results will be displayed here</div>
+      
+      <div id="vocab-section">
+        <h2>📒 我的生词本</h2>
+        <div id="lang-tabs">
+  <button class="tab active" data-lang="all">全部</button>
+  <button class="tab" data-lang="en">英语</button>
+  <button class="tab" data-lang="ja">日语</button>
+  <button class="tab" data-lang="ko">韩语</button>
+  <button class="tab" data-lang="de">德语</button>
+</div>
+        <div id="card-wall"></div>
+      </div>
+
+      <div id="toast"></div>
+    </main>
+    
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="script.js"></script>
+  </body>
+</html>
